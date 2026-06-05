@@ -1,7 +1,8 @@
 import { getSessionSnapshot } from '@/shared/lib/session/session-store';
+import { refreshSession } from '@/shared/lib/session/refresh-session';
+import { API_BASE_URL } from './api-config';
 
-const DEFAULT_API_BASE_URL = 'http://localhost:8000';
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? DEFAULT_API_BASE_URL;
+const HTTP_UNAUTHORIZED = 401;
 
 export const httpMethod = {
   GET: 'GET',
@@ -43,19 +44,7 @@ function buildHeaders(useAuth: boolean): Headers {
   return headers;
 }
 
-export async function httpRequest<T>(
-  path: string,
-  options: RequestOptions = {},
-): Promise<T> {
-  const { method = httpMethod.GET, body, signal, auth = true } = options;
-
-  const response = await fetch(`${API_BASE_URL}${path}`, {
-    method,
-    headers: buildHeaders(auth),
-    body: body === undefined ? undefined : JSON.stringify(body),
-    signal,
-  });
-
+async function parseResponse<T>(response: Response): Promise<T> {
   const contentType = response.headers.get('content-type') ?? '';
   const payload = contentType.includes('application/json')
     ? await response.json()
@@ -66,4 +55,35 @@ export async function httpRequest<T>(
   }
 
   return payload as T;
+}
+
+export async function httpRequest<T>(
+  path: string,
+  options: RequestOptions = {},
+): Promise<T> {
+  const { method = httpMethod.GET, body, signal, auth = true } = options;
+  const url = `${API_BASE_URL}${path}`;
+  const serializedBody = body === undefined ? undefined : JSON.stringify(body);
+
+  let response = await fetch(url, {
+    method,
+    headers: buildHeaders(auth),
+    body: serializedBody,
+    signal,
+  });
+
+  // On an expired access token, try a single transparent refresh + retry.
+  if (response.status === HTTP_UNAUTHORIZED && auth) {
+    const refreshed = await refreshSession();
+    if (refreshed) {
+      response = await fetch(url, {
+        method,
+        headers: buildHeaders(auth),
+        body: serializedBody,
+        signal,
+      });
+    }
+  }
+
+  return parseResponse<T>(response);
 }

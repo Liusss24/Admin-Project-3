@@ -2,6 +2,8 @@
 
 import { useSyncExternalStore } from 'react';
 import {
+  getHydratedSnapshot,
+  getServerHydratedSnapshot,
   getServerSessionSnapshot,
   getSessionSnapshot,
   subscribeSession,
@@ -13,9 +15,15 @@ export function useSession() {
     getSessionSnapshot,
     getServerSessionSnapshot,
   );
+  const isHydrated = useSyncExternalStore(
+    subscribeSession,
+    getHydratedSnapshot,
+    getServerHydratedSnapshot,
+  );
 
   return {
     session,
+    isHydrated,
     isAuthenticated: Boolean(session.accessToken),
   };
 }

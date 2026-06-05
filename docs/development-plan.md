@@ -84,10 +84,10 @@ Implementar el CRUD completo de animales con categorización, accesible desde un
 ### Tareas Técnicas
 
 #### 2.1 Backend — API de Animales
-- [ ] Verificar y ajustar el endpoint `GET /api/animals/` con paginación
-- [ ] Implementar filtro por categoría: `GET /api/animals/?category=trabajo`
-- [ ] Implementar búsqueda por nombre/identificador: `GET /api/animals/?search=lola`
-- [ ] Escribir tests unitarios para el modelo `Animal`:
+- [x] Verificar y ajustar el endpoint `GET /api/animals/` con paginación
+- [x] Implementar filtro por categoría: `GET /api/animals/?category=trabajo`
+- [x] Implementar búsqueda por nombre/identificador: `GET /api/animals/?search=lola`
+- [x] Escribir tests unitarios para el modelo `Animal` (11 tests en `animals/tests.py`, todos pasan):
   - Test: creación con campos válidos
   - Test: `identifier` único (no se repite)
   - Test: categoría obligatoria y restringida a choices válidos
@@ -95,32 +95,35 @@ Implementar el CRUD completo de animales con categorización, accesible desde un
 
 #### 2.2 Frontend — Módulo de Animales (Next.js, sigue la SKILL §10)
 - [x] Entidad `entities/animal/model/animal.repository.ts` con `fetchAnimals/createAnimal/updateAnimal/deleteAnimal` (ya scaffolded)
-- [ ] Feature `features/animals/animal-registration/`:
+- [x] Feature `features/animals/animal-registration/`:
   - `model/animal-registration.types.ts` + `.constants.ts` (field names + `submitOutcome`)
   - `model/animal-registration.validators.ts` (campos obligatorios, en una pasada)
   - `model/animal-registration-submit.ts` con Result tipado (mapea `HttpError` 400 → errores i18n)
   - `hooks/use-animal-registration-form.ts` (orquestador delgado)
   - `ui/animal-form/animal-form.tsx` + `.styles.ts`
-- [ ] Feature `features/animals/animal-list/` con filtro por categoría (server/client) y búsqueda
-- [ ] Widget `widgets/animals/animal-card/` (nombre, identificador, `category-badge`)
-- [ ] Componente `shared/ui/category-badge/` con color por categoría (trabajo=verde, producción=azul, consumo=naranja)
-- [ ] Crear `shared/ui/form-field/`, `shared/ui/input/`, `shared/ui/status-message/` (registrar en la tabla §6 de la SKILL)
-- [ ] Widget `widgets/navigation/navbar/` responsive con links de `routes.ts`
-- [ ] i18n: catálogo `animals` (es/en) con labels, validaciones y acciones
-- [ ] Páginas App Router: `app/animales/page.tsx` + `app/ui/animals-page.tsx` + `app/styles/animals-page.styles.ts`
+- [x] Feature `features/animals/animal-list/` con filtro por categoría y búsqueda (`useAnimalList`)
+- [x] Widget `widgets/animals/animal-card/` (nombre, identificador, `category-badge`)
+- [x] Componente `shared/ui/category-badge/` con color por categoría (trabajo=verde, producción=azul, consumo=naranja)
+- [x] Crear `shared/ui/form-field/`, `shared/ui/input/`, `shared/ui/select/`, `shared/ui/status-message/` (registrados en §6 de la SKILL)
+- [x] Widget `widgets/navigation/navbar/` responsive con links de `routes.ts`
+- [x] i18n: catálogo `animals` + `auth` + `messages` (es/en) con labels, validaciones y acciones
+- [x] Páginas App Router: `app/animales/page.tsx` + `app/ui/animals-page.tsx` + `app/styles/animals-page.styles.ts`
   - Registro completo en 3 clics o menos desde la pantalla principal
 
 #### 2.3 Autenticación y rutas (App Router)
-- [ ] Feature `features/auth/login/` con `login-submit.ts` (POST `/api/token/`) y Result tipado
-- [ ] Guardar tokens con `setSession` (store JWT); `httpRequest` adjunta el `Bearer` automáticamente
-- [ ] Página `app/login/page.tsx` + pantalla orquestadora; `useSession` para estado de sesión
-- [ ] Protección de rutas: redirigir a `route.login` si no hay `accessToken` (middleware o guard en layout)
-- [ ] Manejo de `401`: intentar refresh con `/api/token/refresh/` o `clearSession`
+- [x] Feature `features/auth/login/` con `login-submit.ts` (POST `/api/token/`) y Result tipado
+- [x] Guardar tokens con `setSession` (store JWT); `httpRequest` adjunta el `Bearer` automáticamente
+- [x] Página `app/login/page.tsx` + pantalla orquestadora; `useSession` para estado de sesión
+- [x] Protección de rutas: `AuthGuard` redirige a `route.login` si no hay `accessToken`
+- [x] Manejo de `401`: refresh transparente con `/api/token/refresh/` (single-flight) o `clearSession`
 
-#### 2.4 Pruebas manuales
-- [ ] Registrar al menos 5 animales de prueba (trabajo, producción y consumo)
-- [ ] Verificar que la interfaz es responsive en móvil (320px) y tablet (768px)
-- [ ] Verificar que el registro se completa en 3 clics o menos
+#### 2.4 Pruebas manuales / verificación
+- [x] Registrar al menos 5 animales de prueba (trabajo, producción y consumo) — verificado vía smoke test e2e contra el API
+- [x] Verificar que el registro se completa en 3 clics o menos (Registrar animal → completar → Guardar)
+- [~] Responsive móvil (320px) / tablet (768px): implementado con breakpoints Tailwind (`sm`/`lg`); recomendado walkthrough en dispositivo
+- Verificación automatizada: `npm run typecheck`, `npm run lint`, `npm run build` y 11 tests de backend en verde; SSR de `/login` y `/animales` renderiza correctamente.
+
+> **Demo local:** usuario `demo` / `demo-pass-123`. Backend `python manage.py runserver` (8000) + frontend `npm run dev` (3000).
 
 ### Criterios de Aceptación (PGAT-22)
 - El sistema permite crear el registro de un nuevo animal capturando nombre/identificador y categoría
