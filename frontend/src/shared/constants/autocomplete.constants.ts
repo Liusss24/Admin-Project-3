@@ -3,4 +3,6 @@ export const autoCompleteToken = {
   NAME: 'name',
   EMAIL: 'email',
   ORGANIZATION: 'organization',
+  USERNAME: 'username',
+  CURRENT_PASSWORD: 'current-password',
 } as const;

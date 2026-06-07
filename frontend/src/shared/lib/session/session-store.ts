@@ -5,7 +5,7 @@ import type { SessionData } from './session.types';
 const EMPTY_SESSION: SessionData = { accessToken: null, refreshToken: null };
 
 let snapshot: SessionData = EMPTY_SESSION;
-let hydrated = false;
+let hasHydrated = false;
 const listeners = new Set<() => void>();
 
 function emit(): void {
@@ -15,16 +15,17 @@ function emit(): void {
 }
 
 function hydrateFromStorage(): void {
-  if (hydrated) {
+  if (hasHydrated) {
     return;
   }
-  hydrated = true;
+  hasHydrated = true;
   const accessToken = readStorage(storageKey.ACCESS_TOKEN);
   const refreshToken = readStorage(storageKey.REFRESH_TOKEN);
   if (accessToken || refreshToken) {
     snapshot = { accessToken, refreshToken };
-    emit();
   }
+  // Always emit so `isHydrated` subscribers re-render once hydration completes.
+  emit();
 }
 
 export function getSessionSnapshot(): SessionData {
@@ -33,6 +34,14 @@ export function getSessionSnapshot(): SessionData {
 
 export function getServerSessionSnapshot(): SessionData {
   return EMPTY_SESSION;
+}
+
+export function getHydratedSnapshot(): boolean {
+  return hasHydrated;
+}
+
+export function getServerHydratedSnapshot(): boolean {
+  return false;
 }
 
 export function subscribeSession(listener: () => void): () => void {
@@ -44,6 +53,7 @@ export function subscribeSession(listener: () => void): () => void {
 }
 
 export function setSession(next: SessionData): void {
+  hasHydrated = true;
   snapshot = next;
   if (next.accessToken) {
     writeStorage(storageKey.ACCESS_TOKEN, next.accessToken);
@@ -59,6 +69,7 @@ export function setSession(next: SessionData): void {
 }
 
 export function clearSession(): void {
+  hasHydrated = true;
   snapshot = EMPTY_SESSION;
   removeStorage(storageKey.ACCESS_TOKEN);
   removeStorage(storageKey.REFRESH_TOKEN);

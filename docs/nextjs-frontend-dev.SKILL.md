@@ -419,12 +419,14 @@ export function processFile(file: File): Promise<UploadResult> {
 |---|---|---|
 | `Button` | listo | Boton basico, `type` por defecto `'button'`, variantes `primary`/`secondary`. |
 | `Container` | listo | Wrapper con `max-w-5xl mx-auto px-...`. |
-| `FormField` | por crear | Label + slot para input + hint + error. Recibe `htmlFor`, `label`, `error`, `hint`, `required`. |
-| `Input` | por crear | `<input>` con `forwardRef`. |
+| `FormField` | listo | Label + slot para input + hint + error. Recibe `htmlFor`, `label`, `error`, `hint`, `required`. |
+| `Input` | listo | `<input>` con `forwardRef`, prop `hasError`. |
+| `Select` | listo | `<select>` con `forwardRef`, `options: SelectOption[]`, `placeholder`, `hasError`. |
+| `StatusMessage` | listo | Bloque info/success/error. Usar con `statusMessageVariant.INFO/SUCCESS/ERROR`. |
+| `CategoryBadge` | listo | Badge de color por categoria de animal. Recibe `category` + `label`. |
 | `PasswordInput` | por crear | Input con toggle mostrar/ocultar + iconos. |
 | `Modal` | por crear | Dialog accesible (focus trap, escape, backdrop click). |
 | `SectionHeading` | por crear | Titulo + descripcion centrados. |
-| `StatusMessage` | por crear | Bloque info/success/error. Usar con `statusMessageVariant.INFO/SUCCESS/ERROR`. |
 
 > Al crear un componente nuevo, registralo aqui y marca su estado.
 
@@ -434,7 +436,7 @@ export function processFile(file: File): Promise<UploadResult> {
 |---|---|
 | `app.constants.ts` | `appInfo` (`NAME`, `DESCRIPTION`) |
 | `html-attributes.constants.ts` | `buttonType`, `inputType`, `ariaRole`, `ariaBoolean`, `ariaLive` |
-| `autocomplete.constants.ts` | `autoCompleteToken` (`OFF`, `NAME`, `EMAIL`, `ORGANIZATION`) |
+| `autocomplete.constants.ts` | `autoCompleteToken` (`OFF`, `NAME`, `EMAIL`, `ORGANIZATION`, `USERNAME`, `CURRENT_PASSWORD`) |
 | `icon-sizes.constants.ts` | `iconSize` (`XS=14`, `SM=16`, `MD=18`, `LG=20`, `XL=24`, `XXL=28`) |
 | `storage-keys.constants.ts` | Todas las claves de `localStorage` del proyecto |
 
@@ -607,7 +609,9 @@ nuevo, registra aqui su entrada siguiendo el mismo formato.
 
 | Dominio | Feature | Rutas | Archivos clave |
 |---|---|---|---|
-| animal | _(entidad scaffolded como referencia)_ | `/animales` | `entities/animal/model/animal.types.ts`, `entities/animal/model/animal.repository.ts` |
+| auth | login + guard | `/login` | `entities/auth/model/auth.repository.ts`, `features/auth/login/*`, `features/auth/guard/ui/auth-guard.tsx` |
+| animal | registro (PGAT-22) | `/animales` | `entities/animal/model/animal.repository.ts`, `features/animals/animal-registration/*`, `widgets/animals/animal-card/*` |
+| animal | listado + filtro/busqueda | `/animales` | `features/animals/animal-list/*` (hook `useAnimalList`, `animal-list-load.ts`) |
 
 **API y repositorios por dominio:**
 - `entities/<entidad>/model/<entidad>.repository.ts` — unica capa que llama a

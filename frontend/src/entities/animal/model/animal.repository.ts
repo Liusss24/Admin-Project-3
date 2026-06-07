@@ -48,13 +48,24 @@ function toRequestBody(draft: AnimalDraft) {
   };
 }
 
-export async function fetchAnimals(
-  category?: AnimalCategory,
-): Promise<Animal[]> {
-  const query = category ? `?category=${category}` : '';
-  const data = await httpRequest<PaginatedDto<AnimalDto>>(
-    `${apiRoute.animals}${query}`,
-  );
+export interface AnimalQuery {
+  category?: AnimalCategory;
+  search?: string;
+}
+
+export async function fetchAnimals(query: AnimalQuery = {}): Promise<Animal[]> {
+  const params = new URLSearchParams();
+  if (query.category) {
+    params.set('category', query.category);
+  }
+  if (query.search) {
+    params.set('search', query.search);
+  }
+  const queryString = params.toString();
+  const path = queryString
+    ? `${apiRoute.animals}?${queryString}`
+    : apiRoute.animals;
+  const data = await httpRequest<PaginatedDto<AnimalDto>>(path);
   return data.results.map(toAnimal);
 }
 
