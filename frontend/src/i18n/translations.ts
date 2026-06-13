@@ -7,6 +7,10 @@ import { esAnimals } from './locales/es/animals';
 import { enAnimals } from './locales/en/animals';
 import { esAuth } from './locales/es/auth';
 import { enAuth } from './locales/en/auth';
+import { esHealth } from './locales/es/health';
+import { enHealth } from './locales/en/health';
+import { esFeeding } from './locales/es/feeding';
+import { enFeeding } from './locales/en/feeding';
 import type { AppTranslations } from './types';
 
 export const translations: Record<Language, AppTranslations> = {
@@ -15,11 +19,15 @@ export const translations: Record<Language, AppTranslations> = {
     messages: esMessages,
     animals: esAnimals,
     auth: esAuth,
+    health: esHealth,
+    feeding: esFeeding,
   },
   [language.EN]: {
     common: enCommon,
     messages: enMessages,
     animals: enAnimals,
     auth: enAuth,
+    health: enHealth,
+    feeding: enFeeding,
   },
 };

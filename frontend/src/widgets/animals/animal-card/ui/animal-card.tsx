@@ -1,5 +1,7 @@
+import Link from 'next/link';
 import type { Animal } from '@/entities/animal/model/animal.types';
 import { CategoryBadge } from '@/shared/ui/category-badge/ui/category-badge';
+import { route } from '@/app/routes/routes';
 import { animalCardStyles } from './animal-card.styles';
 
 interface AnimalCardProps {
@@ -14,6 +16,7 @@ export function AnimalCard({
   speciesLabel,
 }: AnimalCardProps) {
   return (
+    <Link href={route.animalDetail(animal.id)} className="block">
     <article className={animalCardStyles.root}>
       <div className={animalCardStyles.header}>
         <h3 className={animalCardStyles.name}>{animal.name}</h3>
@@ -30,5 +33,6 @@ export function AnimalCard({
         </div>
       </dl>
     </article>
+    </Link>
   );
 }

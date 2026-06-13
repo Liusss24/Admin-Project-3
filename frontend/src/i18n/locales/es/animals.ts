@@ -35,6 +35,14 @@ export const esAnimals = {
     empty: 'Aún no hay animales registrados.',
     error: 'No se pudieron cargar los animales.',
   },
+  detail: {
+    back: 'Volver a animales',
+    birthDate: 'Fecha de nacimiento',
+    notes: 'Notas',
+    notSpecified: 'No especificado',
+    loading: 'Cargando animal…',
+    error: 'No se pudo cargar el animal.',
+  },
 };
 
 export type AnimalsTranslations = typeof esAnimals;
