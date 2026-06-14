@@ -37,4 +37,12 @@ export const enAnimals: AnimalsTranslations = {
     empty: 'No animals registered yet.',
     error: 'Could not load the animals.',
   },
+  detail: {
+    back: 'Back to animals',
+    birthDate: 'Birth date',
+    notes: 'Notes',
+    notSpecified: 'Not specified',
+    loading: 'Loading animal…',
+    error: 'Could not load the animal.',
+  },
 };

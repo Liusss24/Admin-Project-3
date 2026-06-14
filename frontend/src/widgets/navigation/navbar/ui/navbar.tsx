@@ -27,6 +27,8 @@ export function Navbar() {
   const items: NavItem[] = [
     { href: route.home, label: t.common.nav.dashboard },
     { href: route.animals, label: t.common.nav.animals },
+    { href: route.health, label: t.common.nav.health },
+    { href: route.feeding, label: t.common.nav.feeding },
   ];
 
   function handleLogout() {

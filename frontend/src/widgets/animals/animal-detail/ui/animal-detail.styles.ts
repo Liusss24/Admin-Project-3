@@ -1,0 +1,15 @@
+export const animalDetailStyles = {
+  root: 'space-y-8',
+  header: 'flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between',
+  nameRow: 'flex items-center gap-3',
+  name: 'text-2xl font-bold text-zinc-900 dark:text-zinc-50',
+  meta: 'grid grid-cols-2 gap-x-6 gap-y-2 text-sm mt-2',
+  metaLabel: 'text-zinc-500 dark:text-zinc-400',
+  metaValue: 'text-zinc-900 dark:text-zinc-100 font-medium',
+  notes: 'text-sm text-zinc-600 dark:text-zinc-300 mt-1',
+  section: 'space-y-4',
+  sectionHeader: 'flex items-center justify-between',
+  sectionTitle: 'text-base font-semibold text-zinc-900 dark:text-zinc-50',
+  panel: 'rounded-lg border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-700 dark:bg-zinc-800/50',
+  successBanner: 'mb-4',
+} as const;
