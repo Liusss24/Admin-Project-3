@@ -5,6 +5,10 @@ export const esAnimals = {
   },
   actions: {
     register: 'Registrar animal',
+    edit: 'Editar animal',
+    delete: 'Eliminar',
+    confirmDelete: 'Confirmar eliminación',
+    deleting: 'Eliminando…',
     cancel: 'Cancelar',
     retry: 'Reintentar',
   },
@@ -42,6 +46,14 @@ export const esAnimals = {
     notSpecified: 'No especificado',
     loading: 'Cargando animal…',
     error: 'No se pudo cargar el animal.',
+  },
+  editForm: {
+    title: 'Editar animal',
+    submit: { idle: 'Guardar cambios', loading: 'Guardando…' },
+    success: 'Animal actualizado correctamente.',
+  },
+  deleteConfirm: {
+    message: '¿Está seguro de que desea eliminar este animal? Esta acción no se puede deshacer.',
   },
 };
 
