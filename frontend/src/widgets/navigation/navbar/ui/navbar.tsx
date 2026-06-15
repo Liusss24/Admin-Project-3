@@ -29,6 +29,7 @@ export function Navbar() {
     { href: route.animals, label: t.common.nav.animals },
     { href: route.health, label: t.common.nav.health },
     { href: route.feeding, label: t.common.nav.feeding },
+    { href: route.location, label: t.common.nav.location },
   ];
 
   function handleLogout() {
