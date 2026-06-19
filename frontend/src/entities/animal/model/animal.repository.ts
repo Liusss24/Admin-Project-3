@@ -51,6 +51,9 @@ function toRequestBody(draft: AnimalDraft) {
 export interface AnimalQuery {
   category?: AnimalCategory;
   search?: string;
+  healthEventType?: string;
+  healthDateFrom?: string;
+  healthDateTo?: string;
 }
 
 export async function fetchAnimals(query: AnimalQuery = {}): Promise<Animal[]> {
@@ -60,6 +63,15 @@ export async function fetchAnimals(query: AnimalQuery = {}): Promise<Animal[]> {
   }
   if (query.search) {
     params.set('search', query.search);
+  }
+  if (query.healthEventType) {
+    params.set('health_event_type', query.healthEventType);
+  }
+  if (query.healthDateFrom) {
+    params.set('health_date_from', query.healthDateFrom);
+  }
+  if (query.healthDateTo) {
+    params.set('health_date_to', query.healthDateTo);
   }
   const queryString = params.toString();
   const path = queryString

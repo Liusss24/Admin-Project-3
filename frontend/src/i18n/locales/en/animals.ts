@@ -19,6 +19,17 @@ export const enAnimals: AnimalsTranslations = {
     searchLabel: 'Search',
     searchPlaceholder: 'Search by name or identifier',
     searchAction: 'Search',
+    healthEventType: {
+      label: 'Event type',
+      any: 'Any type',
+      vacunacion: 'Vaccination',
+      desparasitacion: 'Deworming',
+      revision: 'Check-up',
+      otro: 'Other',
+    },
+    dateFrom: 'From',
+    dateTo: 'To',
+    clearFilters: 'Clear',
   },
   form: {
     title: 'New animal',

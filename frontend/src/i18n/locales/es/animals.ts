@@ -17,6 +17,17 @@ export const esAnimals = {
     searchLabel: 'Buscar',
     searchPlaceholder: 'Buscar por nombre o identificador',
     searchAction: 'Buscar',
+    healthEventType: {
+      label: 'Tipo de evento',
+      any: 'Cualquier tipo',
+      vacunacion: 'Vacunación',
+      desparasitacion: 'Desparasitación',
+      revision: 'Revisión',
+      otro: 'Otro',
+    },
+    dateFrom: 'Desde',
+    dateTo: 'Hasta',
+    clearFilters: 'Limpiar',
   },
   form: {
     title: 'Nuevo animal',

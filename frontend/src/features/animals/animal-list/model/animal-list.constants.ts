@@ -16,3 +16,17 @@ export const listStatus = {
 } as const;
 
 export type ListStatus = (typeof listStatus)[keyof typeof listStatus];
+
+export interface AnimalSearchParams {
+  search: string;
+  healthEventType: string;
+  healthDateFrom: string;
+  healthDateTo: string;
+}
+
+export const defaultSearchParams: AnimalSearchParams = {
+  search: '',
+  healthEventType: '',
+  healthDateFrom: '',
+  healthDateTo: '',
+};

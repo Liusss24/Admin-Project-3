@@ -9,6 +9,9 @@ export type AnimalListResult =
 interface LoadAnimalsParams {
   category?: AnimalCategory;
   search?: string;
+  healthEventType?: string;
+  healthDateFrom?: string;
+  healthDateTo?: string;
 }
 
 export async function loadAnimals(
