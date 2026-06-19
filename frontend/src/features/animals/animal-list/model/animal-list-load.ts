@@ -12,6 +12,7 @@ interface LoadAnimalsParams {
   healthEventType?: string;
   healthDateFrom?: string;
   healthDateTo?: string;
+  foodType?: string;
 }
 
 export async function loadAnimals(

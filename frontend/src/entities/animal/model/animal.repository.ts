@@ -54,6 +54,7 @@ export interface AnimalQuery {
   healthEventType?: string;
   healthDateFrom?: string;
   healthDateTo?: string;
+  foodType?: string;
 }
 
 export async function fetchAnimals(query: AnimalQuery = {}): Promise<Animal[]> {
@@ -72,6 +73,9 @@ export async function fetchAnimals(query: AnimalQuery = {}): Promise<Animal[]> {
   }
   if (query.healthDateTo) {
     params.set('health_date_to', query.healthDateTo);
+  }
+  if (query.foodType) {
+    params.set('food_type', query.foodType);
   }
   const queryString = params.toString();
   const path = queryString

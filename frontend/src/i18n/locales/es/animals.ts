@@ -27,7 +27,9 @@ export const esAnimals = {
     },
     dateFrom: 'Desde',
     dateTo: 'Hasta',
-    clearFilters: 'Limpiar',
+    foodType: 'Tipo de alimento',
+    foodTypePlaceholder: 'Ej. Heno, maíz…',
+    clearFilters: 'Limpiar filtros',
   },
   form: {
     title: 'Nuevo animal',

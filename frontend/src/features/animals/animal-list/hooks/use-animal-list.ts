@@ -28,6 +28,7 @@ export function useAnimalList() {
       healthEventType: searchParams.healthEventType || undefined,
       healthDateFrom: searchParams.healthDateFrom || undefined,
       healthDateTo: searchParams.healthDateTo || undefined,
+      foodType: searchParams.foodType || undefined,
     });
     if (result.kind === loadOutcome.SUCCESS) {
       setAnimals(result.animals);

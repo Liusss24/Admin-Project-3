@@ -22,6 +22,7 @@ export interface AnimalSearchParams {
   healthEventType: string;
   healthDateFrom: string;
   healthDateTo: string;
+  foodType: string;
 }
 
 export const defaultSearchParams: AnimalSearchParams = {
@@ -29,4 +30,5 @@ export const defaultSearchParams: AnimalSearchParams = {
   healthEventType: '',
   healthDateFrom: '',
   healthDateTo: '',
+  foodType: '',
 };

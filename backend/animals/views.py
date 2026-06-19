@@ -29,4 +29,8 @@ class AnimalViewSet(viewsets.ModelViewSet):
         if health_filter:
             qs = qs.filter(**health_filter).distinct()
 
+        food_type = self.request.query_params.get('food_type')
+        if food_type:
+            qs = qs.filter(feeding_records__food_type__icontains=food_type).distinct()
+
         return qs

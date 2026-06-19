@@ -13,6 +13,7 @@ import {
 } from '@/shared/constants/html-attributes.constants';
 import {
   ALL_CATEGORIES,
+  defaultSearchParams,
   type AnimalSearchParams,
   type CategoryFilter,
 } from '../../model/animal-list.constants';
@@ -39,6 +40,7 @@ export function AnimalFilter({
   const [healthEventType, setHealthEventType] = useState('');
   const [healthDateFrom, setHealthDateFrom] = useState('');
   const [healthDateTo, setHealthDateTo] = useState('');
+  const [foodType, setFoodType] = useState('');
 
   const ft = t.animals.filter;
 
@@ -59,14 +61,16 @@ export function AnimalFilter({
 
   function handleSearchSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    onSearch({ search: term.trim(), healthEventType, healthDateFrom, healthDateTo });
+    onSearch({ search: term.trim(), healthEventType, healthDateFrom, healthDateTo, foodType });
   }
 
-  function handleClearHealth() {
+  function handleClear() {
+    setTerm('');
     setHealthEventType('');
     setHealthDateFrom('');
     setHealthDateTo('');
-    onSearch({ search: term.trim(), healthEventType: '', healthDateFrom: '', healthDateTo: '' });
+    setFoodType('');
+    onSearch(defaultSearchParams);
   }
 
   return (
@@ -139,9 +143,20 @@ export function AnimalFilter({
           />
         </div>
 
+        <div className={animalFilterStyles.healthField}>
+          <label className={animalFilterStyles.fieldLabel}>{ft.foodType}</label>
+          <Input
+            type={inputType.TEXT}
+            value={foodType}
+            placeholder={ft.foodTypePlaceholder}
+            className={animalFilterStyles.foodInput}
+            onChange={(e) => setFoodType(e.target.value)}
+          />
+        </div>
+
         <button
           type={buttonType.BUTTON}
-          onClick={handleClearHealth}
+          onClick={handleClear}
           className={animalFilterStyles.clearButton}
         >
           {ft.clearFilters}

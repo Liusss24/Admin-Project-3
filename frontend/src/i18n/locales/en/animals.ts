@@ -29,7 +29,9 @@ export const enAnimals: AnimalsTranslations = {
     },
     dateFrom: 'From',
     dateTo: 'To',
-    clearFilters: 'Clear',
+    foodType: 'Food type',
+    foodTypePlaceholder: 'e.g. Hay, corn…',
+    clearFilters: 'Clear filters',
   },
   form: {
     title: 'New animal',
