@@ -7,6 +7,10 @@ export const enAnimals: AnimalsTranslations = {
   },
   actions: {
     register: 'Register animal',
+    edit: 'Edit animal',
+    delete: 'Delete',
+    confirmDelete: 'Confirm deletion',
+    deleting: 'Deleting…',
     cancel: 'Cancel',
     retry: 'Retry',
   },
@@ -15,6 +19,19 @@ export const enAnimals: AnimalsTranslations = {
     searchLabel: 'Search',
     searchPlaceholder: 'Search by name or identifier',
     searchAction: 'Search',
+    healthEventType: {
+      label: 'Event type',
+      any: 'Any type',
+      vacunacion: 'Vaccination',
+      desparasitacion: 'Deworming',
+      revision: 'Check-up',
+      otro: 'Other',
+    },
+    dateFrom: 'From',
+    dateTo: 'To',
+    foodType: 'Food type',
+    foodTypePlaceholder: 'e.g. Hay, corn…',
+    clearFilters: 'Clear filters',
   },
   form: {
     title: 'New animal',
@@ -44,5 +61,13 @@ export const enAnimals: AnimalsTranslations = {
     notSpecified: 'Not specified',
     loading: 'Loading animal…',
     error: 'Could not load the animal.',
+  },
+  editForm: {
+    title: 'Edit animal',
+    submit: { idle: 'Save changes', loading: 'Saving…' },
+    success: 'Animal updated successfully.',
+  },
+  deleteConfirm: {
+    message: 'Are you sure you want to delete this animal? This action cannot be undone.',
   },
 };

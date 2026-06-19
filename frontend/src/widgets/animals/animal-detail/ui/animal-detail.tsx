@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Plus } from 'lucide-react';
 import { useI18n } from '@/app/providers/i18n-provider';
 import type { Animal } from '@/entities/animal/model/animal.types';
+import type { Farm } from '@/entities/location/model/location.types';
 import { CategoryBadge } from '@/shared/ui/category-badge/ui/category-badge';
 import { Button } from '@/shared/ui/button/ui/button';
 import { StatusMessage } from '@/shared/ui/status-message/ui/status-message';
@@ -12,24 +13,32 @@ import { ariaBoolean, buttonType } from '@/shared/constants/html-attributes.cons
 import { iconSize } from '@/shared/constants/icon-sizes.constants';
 import { HealthEventForm } from '@/features/health/health-event-registration';
 import { HealthEventList, useHealthEventList } from '@/features/health/health-event-list';
+import { deleteHealthEvent } from '@/entities/health';
 import { FeedingRecordForm } from '@/features/feeding/feeding-record-registration';
 import { FeedingRecordList, useFeedingRecordList } from '@/features/feeding/feeding-record-list';
+import { deleteFeedingRecord } from '@/entities/feeding';
+import { LocationAssignmentForm } from '@/features/location/location-assignment';
+import { LocationHistoryList, useLocationHistory } from '@/features/location/location-history';
 import { animalDetailStyles } from './animal-detail.styles';
 
 interface AnimalDetailProps {
   animal: Animal;
+  farms: Farm[];
 }
 
-export function AnimalDetail({ animal }: AnimalDetailProps) {
+export function AnimalDetail({ animal, farms }: AnimalDetailProps) {
   const { t } = useI18n();
 
   const { events, status: healthStatus, reload: reloadHealth } = useHealthEventList(animal.id);
   const { records, status: feedingStatus, reload: reloadFeeding } = useFeedingRecordList(animal.id);
+  const { locations, status: locationStatus, reload: reloadLocation } = useLocationHistory(animal.id);
 
   const [healthPanelOpen, setHealthPanelOpen] = useState(false);
   const [showHealthSuccess, setShowHealthSuccess] = useState(false);
   const [feedingPanelOpen, setFeedingPanelOpen] = useState(false);
   const [showFeedingSuccess, setShowFeedingSuccess] = useState(false);
+  const [locationPanelOpen, setLocationPanelOpen] = useState(false);
+  const [showLocationSuccess, setShowLocationSuccess] = useState(false);
 
   function handleHealthCreated() {
     setHealthPanelOpen(false);
@@ -41,6 +50,20 @@ export function AnimalDetail({ animal }: AnimalDetailProps) {
     setFeedingPanelOpen(false);
     setShowFeedingSuccess(true);
     void reloadFeeding();
+  }
+
+  function handleHealthDeleted(id: number) {
+    void deleteHealthEvent(id).then(() => reloadHealth());
+  }
+
+  function handleFeedingDeleted(id: number) {
+    void deleteFeedingRecord(id).then(() => reloadFeeding());
+  }
+
+  function handleLocationAssigned() {
+    setLocationPanelOpen(false);
+    setShowLocationSuccess(true);
+    void reloadLocation();
   }
 
   return (
@@ -71,6 +94,48 @@ export function AnimalDetail({ animal }: AnimalDetailProps) {
           <p className={animalDetailStyles.notes}>{animal.notes}</p>
         ) : null}
       </div>
+
+      {/* Location section */}
+      <section className={animalDetailStyles.section}>
+        <div className={animalDetailStyles.sectionHeader}>
+          <h2 className={animalDetailStyles.sectionTitle}>{t.location.section}</h2>
+          <Button
+            type={buttonType.BUTTON}
+            onClick={() => {
+              setShowLocationSuccess(false);
+              setLocationPanelOpen((o) => !o);
+            }}
+          >
+            <Plus size={iconSize.SM} aria-hidden={ariaBoolean.TRUE} />
+            {t.location.actions.assign}
+          </Button>
+        </div>
+
+        {showLocationSuccess ? (
+          <div className={animalDetailStyles.successBanner}>
+            <StatusMessage variant={statusMessageVariant.SUCCESS}>
+              {t.location.assignment.form.success}
+            </StatusMessage>
+          </div>
+        ) : null}
+
+        {locationPanelOpen ? (
+          <div className={animalDetailStyles.panel}>
+            <LocationAssignmentForm
+              animalId={animal.id}
+              farms={farms}
+              onSuccess={handleLocationAssigned}
+              onCancel={() => setLocationPanelOpen(false)}
+            />
+          </div>
+        ) : null}
+
+        <LocationHistoryList
+          locations={locations}
+          status={locationStatus}
+          onRetry={reloadLocation}
+        />
+      </section>
 
       {/* Health section */}
       <section className={animalDetailStyles.section}>
@@ -106,7 +171,7 @@ export function AnimalDetail({ animal }: AnimalDetailProps) {
           </div>
         ) : null}
 
-        <HealthEventList events={events} status={healthStatus} onRetry={reloadHealth} />
+        <HealthEventList events={events} status={healthStatus} onRetry={reloadHealth} onDelete={handleHealthDeleted} />
       </section>
 
       {/* Feeding section */}
@@ -143,7 +208,7 @@ export function AnimalDetail({ animal }: AnimalDetailProps) {
           </div>
         ) : null}
 
-        <FeedingRecordList records={records} status={feedingStatus} onRetry={reloadFeeding} />
+        <FeedingRecordList records={records} status={feedingStatus} onRetry={reloadFeeding} onDelete={handleFeedingDeleted} />
       </section>
     </div>
   );

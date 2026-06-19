@@ -4,6 +4,7 @@ export const enHealth: HealthTranslations = {
   section: 'Health events',
   actions: {
     add: 'Record event',
+    delete: 'Delete',
     cancel: 'Cancel',
     retry: 'Retry',
   },

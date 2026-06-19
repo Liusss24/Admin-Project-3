@@ -5,6 +5,10 @@ export const esAnimals = {
   },
   actions: {
     register: 'Registrar animal',
+    edit: 'Editar animal',
+    delete: 'Eliminar',
+    confirmDelete: 'Confirmar eliminación',
+    deleting: 'Eliminando…',
     cancel: 'Cancelar',
     retry: 'Reintentar',
   },
@@ -13,6 +17,19 @@ export const esAnimals = {
     searchLabel: 'Buscar',
     searchPlaceholder: 'Buscar por nombre o identificador',
     searchAction: 'Buscar',
+    healthEventType: {
+      label: 'Tipo de evento',
+      any: 'Cualquier tipo',
+      vacunacion: 'Vacunación',
+      desparasitacion: 'Desparasitación',
+      revision: 'Revisión',
+      otro: 'Otro',
+    },
+    dateFrom: 'Desde',
+    dateTo: 'Hasta',
+    foodType: 'Tipo de alimento',
+    foodTypePlaceholder: 'Ej. Heno, maíz…',
+    clearFilters: 'Limpiar filtros',
   },
   form: {
     title: 'Nuevo animal',
@@ -42,6 +59,14 @@ export const esAnimals = {
     notSpecified: 'No especificado',
     loading: 'Cargando animal…',
     error: 'No se pudo cargar el animal.',
+  },
+  editForm: {
+    title: 'Editar animal',
+    submit: { idle: 'Guardar cambios', loading: 'Guardando…' },
+    success: 'Animal actualizado correctamente.',
+  },
+  deleteConfirm: {
+    message: '¿Está seguro de que desea eliminar este animal? Esta acción no se puede deshacer.',
   },
 };
 

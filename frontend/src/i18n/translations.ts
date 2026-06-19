@@ -11,6 +11,8 @@ import { esHealth } from './locales/es/health';
 import { enHealth } from './locales/en/health';
 import { esFeeding } from './locales/es/feeding';
 import { enFeeding } from './locales/en/feeding';
+import { esLocation } from './locales/es/location';
+import { enLocation } from './locales/en/location';
 import type { AppTranslations } from './types';
 
 export const translations: Record<Language, AppTranslations> = {
@@ -21,6 +23,7 @@ export const translations: Record<Language, AppTranslations> = {
     auth: esAuth,
     health: esHealth,
     feeding: esFeeding,
+    location: esLocation,
   },
   [language.EN]: {
     common: enCommon,
@@ -29,5 +32,6 @@ export const translations: Record<Language, AppTranslations> = {
     auth: enAuth,
     health: enHealth,
     feeding: enFeeding,
+    location: enLocation,
   },
 };

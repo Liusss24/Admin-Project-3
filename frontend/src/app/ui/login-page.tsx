@@ -28,6 +28,18 @@ export function LoginPage() {
         <p className={loginPageStyles.subtitle}>{t.auth.login.subtitle}</p>
         <LoginForm onSuccess={() => router.replace(route.animals)} />
       </div>
+
+      <div className={loginPageStyles.hint}>
+        <p className={loginPageStyles.hintTitle}>Credenciales de demo</p>
+        <div className={loginPageStyles.hintRow}>
+          <span className={loginPageStyles.hintLabel}>Usuario</span>
+          <span className={loginPageStyles.hintValue}>admin</span>
+        </div>
+        <div className={loginPageStyles.hintRow}>
+          <span className={loginPageStyles.hintLabel}>Contraseña</span>
+          <span className={loginPageStyles.hintValue}>pgat2026</span>
+        </div>
+      </div>
     </Container>
   );
 }
