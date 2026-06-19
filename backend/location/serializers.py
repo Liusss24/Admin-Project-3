@@ -3,10 +3,15 @@ from .models import Farm, AnimalLocation
 
 
 class FarmSerializer(serializers.ModelSerializer):
+    animal_count = serializers.SerializerMethodField()
+
     class Meta:
         model = Farm
-        fields = ['id', 'name', 'description', 'created_at']
-        read_only_fields = ['created_at']
+        fields = ['id', 'name', 'description', 'animal_count', 'created_at']
+        read_only_fields = ['animal_count', 'created_at']
+
+    def get_animal_count(self, obj):
+        return obj.animals.filter(is_current=True).count()
 
 
 class AnimalLocationSerializer(serializers.ModelSerializer):
@@ -17,4 +22,4 @@ class AnimalLocationSerializer(serializers.ModelSerializer):
         model = AnimalLocation
         fields = ['id', 'animal', 'animal_name', 'farm', 'farm_name',
                   'lot', 'assigned_at', 'is_current', 'created_at']
-        read_only_fields = ['created_at']
+        read_only_fields = ['is_current', 'created_at']

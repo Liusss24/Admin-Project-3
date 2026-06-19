@@ -1,3 +1,4 @@
+from django.db import transaction
 from rest_framework import viewsets, filters
 from .models import Farm, AnimalLocation
 from .serializers import FarmSerializer, AnimalLocationSerializer
@@ -23,3 +24,9 @@ class AnimalLocationViewSet(viewsets.ModelViewSet):
         if farm_id:
             qs = qs.filter(farm_id=farm_id)
         return qs
+
+    @transaction.atomic
+    def perform_create(self, serializer):
+        animal = serializer.validated_data['animal']
+        AnimalLocation.objects.filter(animal=animal, is_current=True).update(is_current=False)
+        serializer.save(is_current=True)
