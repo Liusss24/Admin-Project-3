@@ -13,8 +13,10 @@ import { ariaBoolean, buttonType } from '@/shared/constants/html-attributes.cons
 import { iconSize } from '@/shared/constants/icon-sizes.constants';
 import { HealthEventForm } from '@/features/health/health-event-registration';
 import { HealthEventList, useHealthEventList } from '@/features/health/health-event-list';
+import { deleteHealthEvent } from '@/entities/health';
 import { FeedingRecordForm } from '@/features/feeding/feeding-record-registration';
 import { FeedingRecordList, useFeedingRecordList } from '@/features/feeding/feeding-record-list';
+import { deleteFeedingRecord } from '@/entities/feeding';
 import { LocationAssignmentForm } from '@/features/location/location-assignment';
 import { LocationHistoryList, useLocationHistory } from '@/features/location/location-history';
 import { animalDetailStyles } from './animal-detail.styles';
@@ -48,6 +50,14 @@ export function AnimalDetail({ animal, farms }: AnimalDetailProps) {
     setFeedingPanelOpen(false);
     setShowFeedingSuccess(true);
     void reloadFeeding();
+  }
+
+  function handleHealthDeleted(id: number) {
+    void deleteHealthEvent(id).then(() => reloadHealth());
+  }
+
+  function handleFeedingDeleted(id: number) {
+    void deleteFeedingRecord(id).then(() => reloadFeeding());
   }
 
   function handleLocationAssigned() {
@@ -161,7 +171,7 @@ export function AnimalDetail({ animal, farms }: AnimalDetailProps) {
           </div>
         ) : null}
 
-        <HealthEventList events={events} status={healthStatus} onRetry={reloadHealth} />
+        <HealthEventList events={events} status={healthStatus} onRetry={reloadHealth} onDelete={handleHealthDeleted} />
       </section>
 
       {/* Feeding section */}
@@ -198,7 +208,7 @@ export function AnimalDetail({ animal, farms }: AnimalDetailProps) {
           </div>
         ) : null}
 
-        <FeedingRecordList records={records} status={feedingStatus} onRetry={reloadFeeding} />
+        <FeedingRecordList records={records} status={feedingStatus} onRetry={reloadFeeding} onDelete={handleFeedingDeleted} />
       </section>
     </div>
   );

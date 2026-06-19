@@ -4,6 +4,7 @@ export const enFeeding: FeedingTranslations = {
   section: 'Feeding records',
   actions: {
     add: 'Record feeding',
+    delete: 'Delete',
     cancel: 'Cancel',
     retry: 'Retry',
   },

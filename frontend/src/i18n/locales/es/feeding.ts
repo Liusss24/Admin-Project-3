@@ -2,6 +2,7 @@ export const esFeeding = {
   section: 'Registros de alimentación',
   actions: {
     add: 'Registrar alimentación',
+    delete: 'Eliminar',
     cancel: 'Cancelar',
     retry: 'Reintentar',
   },

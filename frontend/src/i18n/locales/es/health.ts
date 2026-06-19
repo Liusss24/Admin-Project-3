@@ -2,6 +2,7 @@ export const esHealth = {
   section: 'Eventos de salud',
   actions: {
     add: 'Registrar evento',
+    delete: 'Eliminar',
     cancel: 'Cancelar',
     retry: 'Reintentar',
   },
