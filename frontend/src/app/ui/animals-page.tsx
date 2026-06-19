@@ -23,7 +23,7 @@ import { animalsPageStyles } from '@/app/styles/animals-page.styles';
 
 function AnimalsScreen() {
   const { t } = useI18n();
-  const { animals, status, category, setCategory, setSearch, reload } =
+  const { animals, status, category, setCategory, setSearchParams, reload } =
     useAnimalList();
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -80,7 +80,7 @@ function AnimalsScreen() {
           <AnimalFilter
             category={category}
             onCategoryChange={setCategory}
-            onSearch={setSearch}
+            onSearch={setSearchParams}
           />
         </div>
 
